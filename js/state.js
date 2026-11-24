@@ -12,6 +12,7 @@ export const state = {
   subtitle: '',
   footer: '',
   orientation: 'portrait',
+  printTheme: 'white',   // 'white' | 'black'
   events: {}
 };
 

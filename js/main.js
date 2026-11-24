@@ -108,6 +108,15 @@ function bind() {
     });
   });
 
+  // Fondo de impresión (blanco / negro)
+  $$('#print-theme-seg button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      state.printTheme = btn.dataset.theme;
+      syncPanel();
+      saveState();
+    });
+  });
+
   // Idioma
   $$('#lang-seg button').forEach((btn) => {
     btn.addEventListener('click', () => {

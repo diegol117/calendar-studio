@@ -3,6 +3,7 @@ import { state } from './state.js';
 import { t } from './i18n.js';
 import { escapeHTML, downloadBlob } from './utils.js';
 import { toast } from './toast.js';
+import { getPrintPageCSS } from './panel.js';
 
 export function printCalendar() { window.print(); }
 
@@ -59,14 +60,8 @@ export async function exportHTML() {
     btn.replaceWith(div);
   });
 
-  const printCSS =
-    '@page{size:A4 ' + state.orientation + ';margin:12mm}' +
-    '@media print{' +
-      '.calendar{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-      '.months-grid{display:block !important}' +
-      '.month{break-inside:avoid;page-break-inside:avoid}' +
-      '.month+.month{break-before:page;page-break-before:always}' +
-    '}';
+  // CSS de impresión (respeta orientación + tema blanco/negro)
+  const printCSS = getPrintPageCSS();
 
   // Si el CSS se pudo leer, se INLINEA (autocontenido).
   // Si no, se referencian las hojas por URL absoluta (fallback).
