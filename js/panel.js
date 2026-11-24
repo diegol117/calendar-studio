@@ -57,24 +57,35 @@ export function getPrintPageCSS() {
   const size  = 'A4 ' + state.orientation;
   const black = state.printTheme === 'black';
 
-  let css = `@page{size:${size};margin:12mm}`;
-  css += `@media print{`;
-  css += `.calendar{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
-  css += `.months-grid{display:block !important}`;
-  css += `.month{break-inside:avoid;page-break-inside:avoid}`;
-  css += `.month+.month{break-before:page;page-break-before:always}`;
+  let css = '';
 
   if (black) {
-    // 1. Forzar el fondo oscuro en toda la página (incluidos los márgenes)
-    css += `html{background:#07080c !important;box-shadow:0 0 0 10000px #07080c !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+    // 1. Quitamos el margen de la página para que el color llegue a los bordes físicos
+    css += `@page{size:${size};margin:0}`;
+    css += `@media print{`;
+    // 2. Pintamos toda la hoja de negro y le damos el margen visual con padding
+    css += `html,body{background:#07080c !important;color:#fff !important;margin:0 !important;padding:0 !important;width:100% !important;height:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+    css += `body{padding:12mm !important;box-sizing:border-box !important}`;
 
-    // 2. Hacer transparentes los contenedores intermedios
-    css += `body,.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important}`;
+    // 3. Hacemos transparentes todos los contenedores
+    css += `.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important;width:100% !important;max-width:100% !important}`;
 
-    // 3. Quitar bordes, redondeos y sombras del calendario para que se fusione con la hoja
-    css += `.calendar{background:#07080c !important;border:none !important;border-radius:0 !important;box-shadow:none !important;width:100% !important;max-width:100% !important}`;
+    // 4. EL TRUCO: Calendario transparente, sin bordes, sin sombras y a todo el ancho
+    css += `.calendar{background:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;width:100% !important;max-width:100% !important;padding:0 !important}`;
+
+    // 5. Reglas de paginación
+    css += `.months-grid{display:block !important}`;
+    css += `.month{break-inside:avoid;page-break-inside:avoid}`;
+    css += `.month+.month{break-before:page;page-break-before:always}`;
   } else {
     // Hoja blanca + calendario gris con letras negras (monocromo).
+    css += `@page{size:${size};margin:12mm}`;
+    css += `@media print{`;
+    css += `.calendar{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+    css += `.months-grid{display:block !important}`;
+    css += `.month{break-inside:avoid;page-break-inside:avoid}`;
+    css += `.month+.month{break-before:page;page-break-before:always}`;
+
     css += `html,body{background:#ffffff !important;color:#000 !important;padding:0 !important;margin:0 !important}`;
     css += `.calendar{background:#d1d5db !important;color:#000 !important;filter:grayscale(1)}`;
     css += `.calendar__title,.calendar__subtitle,.calendar__footer,.calendar__badge,.month__title,.weekdays span,.day__num,.day__more,.day__event{color:#000 !important}`;
