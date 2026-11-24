@@ -2,7 +2,7 @@
 
 > **A bilingual (ES/EN), print-ready calendar builder that runs entirely in your browser.**
 
-Calendario Studio is a lightweight web app for creating clean, customizable calendars and turning them into polished PDFs, standalone HTML files, or JSON backups — without accounts, servers, or installations.
+Calendario Studio is a lightweight web app for creating clean, customizable calendars and turning them into polished PDFs, PNGs or standalone HTML files — without accounts, servers, or installations.
 
 ---
 
@@ -21,7 +21,7 @@ No backend, no login, no tracking. Your work autosaves locally and can be export
 - ✏️ Set a **title, subtitle and footer note** for each calendar.
 - 🎨 Add **events with color tags** by clicking any day.
 - 🖨️ Print or save as **A4 PDF** in portrait or landscape.
-- 💾 Export a **standalone HTML** file or a **JSON backup** — and import it back anytime.
+- 💾 Export a **standalone HTML** file or a **PNG backup** — and import it back anytime.
 - 🌐 Switch between **Spanish and English** with a single click.
 
 ---
