@@ -4,7 +4,7 @@ export const I18N = {
     saved: 'Guardado automáticamente', saving: 'Guardando…',
     settings: 'Configuración', toggleConfigAria: 'Mostrar u ocultar configuración',
     loadExample: 'Cargar ejemplo', clearAll: 'Limpiar todo',
-    exportHtml: 'Exportar HTML', printPdf: 'Imprimir / PDF',
+    exportHtml: 'Exportar HTML', exportPng: 'PNG', printPdf: 'Imprimir / PDF',
     period: 'Periodo', month: 'Mes', year: 'Año',
     consecutiveMonths: 'Meses consecutivos',
     months1: '1 mes', months2: '2 meses', months3: '3 meses (trimestre)',
@@ -19,7 +19,7 @@ export const I18N = {
     dayEvents: 'Eventos del día', newEvent: 'Nuevo evento',
     eventTitleLabel: 'Título de la tarea o nota', eventNoteLabel: 'Descripción (opcional)',
     eventTagLabel: 'Etiqueta de color', saveToCell: 'Guardar en la casilla',
-    cancel: 'Cancelar', savePdf: 'Guardar PDF', saveHtml: 'Guardar HTML',
+    cancel: 'Cancelar', savePdf: 'Guardar PDF', saveHtml: 'Guardar HTML', savePng: 'Guardar PNG',
     clearDay: 'Vaciar todos los eventos de este día',
     titlePlaceholder: 'Mi calendario', subtitlePlaceholder: 'Organiza tus días con estilo',
     footerPlaceholder: 'Ej. Documento interno del equipo',
@@ -31,7 +31,9 @@ export const I18N = {
     dayAlreadyEmpty: 'Este día ya está vacío', dayCleared: 'Día vaciado',
     confirmClearDay: '¿Vaciar todos los eventos de este día?',
     confirmClearAll: '¿Borrar todos los eventos y restablecer los textos?',
-    htmlExported: 'HTML exportado correctamente', jsonExported: 'JSON exportado',
+    htmlExported: 'HTML exportado correctamente', htmlError: 'Error al exportar HTML',
+    jsonExported: 'JSON exportado',
+    pngExported: 'PNG exportado', pngError: 'Error al exportar PNG',
     jsonImported: 'Datos importados', jsonInvalid: 'Archivo JSON inválido',
     exampleLoaded: 'Ejemplo cargado', allCleared: 'Todo limpio',
     quickNote: 'Nota rápida', moreEvents: 'más'
@@ -41,7 +43,7 @@ export const I18N = {
     saved: 'Autosaved', saving: 'Saving…',
     settings: 'Settings', toggleConfigAria: 'Show or hide settings',
     loadExample: 'Load example', clearAll: 'Clear all',
-    exportHtml: 'Export HTML', printPdf: 'Print / PDF',
+    exportHtml: 'Export HTML', exportPng: 'PNG', printPdf: 'Print / PDF',
     period: 'Period', month: 'Month', year: 'Year',
     consecutiveMonths: 'Consecutive months',
     months1: '1 month', months2: '2 months', months3: '3 months (quarter)',
@@ -56,7 +58,7 @@ export const I18N = {
     dayEvents: 'Events of the day', newEvent: 'New event',
     eventTitleLabel: 'Task or note title', eventNoteLabel: 'Description (optional)',
     eventTagLabel: 'Color label', saveToCell: 'Save to this day',
-    cancel: 'Cancel', savePdf: 'Save PDF', saveHtml: 'Save HTML',
+    cancel: 'Cancel', savePdf: 'Save PDF', saveHtml: 'Save HTML', savePng: 'Save PNG',
     clearDay: 'Clear all events for this day',
     titlePlaceholder: 'My calendar', subtitlePlaceholder: 'Organize your days in style',
     footerPlaceholder: 'E.g. Internal team document',
@@ -68,7 +70,9 @@ export const I18N = {
     dayAlreadyEmpty: 'This day is already empty', dayCleared: 'Day cleared',
     confirmClearDay: 'Clear all events for this day?',
     confirmClearAll: 'Delete all events and reset texts?',
-    htmlExported: 'HTML exported successfully', jsonExported: 'JSON exported',
+    htmlExported: 'HTML exported successfully', htmlError: 'Error exporting HTML',
+    jsonExported: 'JSON exported',
+    pngExported: 'PNG exported', pngError: 'Error exporting PNG',
     jsonImported: 'Data imported', jsonInvalid: 'Invalid JSON file',
     exampleLoaded: 'Example loaded', allCleared: 'All clear',
     quickNote: 'Quick note', moreEvents: 'more'
@@ -132,6 +136,4 @@ export function applyI18n(lang) {
     b.classList.toggle('is-active', active);
     b.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
-
 }
-
