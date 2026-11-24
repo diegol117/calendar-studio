@@ -132,4 +132,6 @@ export function applyI18n(lang) {
     b.classList.toggle('is-active', active);
     b.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
+
 }
+

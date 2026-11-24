@@ -4,7 +4,7 @@ import { $, $$, uid, escapeHTML, parseDateKey } from './utils.js';
 import { t, tagLabel, getMonths } from './i18n.js';
 import { renderCalendar } from './render.js';
 import { toast } from './toast.js';
-import { printCalendar, exportHTML } from './export.js';
+import { printCalendar, exportHTML, exportPNG } from './export.js';
 
 let currentDateKey = null;
 
@@ -31,6 +31,7 @@ export function initModal() {
   $('#day-clear').addEventListener('click', clearDay);
   $('#btn-print-modal').addEventListener('click', printCalendar);
   $('#btn-export-modal').addEventListener('click', exportHTML);
+  $('#btn-export-png-modal').addEventListener('click', exportPNG);
 }
 
 export function openDayModal(dateKeyStr) {

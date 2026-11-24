@@ -6,7 +6,7 @@ import { toast } from './toast.js';
 import { renderCalendar } from './render.js';
 import { populateMonths, populateTags, syncPanel } from './panel.js';
 import { openDayModal, initModal, refreshModalI18n } from './modal.js';
-import { printCalendar, exportHTML, exportJSON, importJSON } from './export.js';
+import { printCalendar, exportHTML, exportPNG, exportJSON, importJSON } from './export.js';
 
 /* ---------- Indicador de guardado ---------- */
 function setSaveIndicator(name) {
@@ -134,6 +134,7 @@ function bind() {
   $('#btn-example').addEventListener('click', loadExample);
   $('#btn-clear').addEventListener('click', clearAll);
   $('#btn-export-html').addEventListener('click', exportHTML);
+  $('#btn-export-png').addEventListener('click', exportPNG);
   $('#btn-print').addEventListener('click', printCalendar);
   $('#btn-print-panel').addEventListener('click', printCalendar);
   $('#btn-export-json').addEventListener('click', exportJSON);
