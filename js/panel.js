@@ -65,10 +65,14 @@ export function getPrintPageCSS() {
   css += `.month+.month{break-before:page;page-break-before:always}`;
 
   if (black) {
-    // Fondo oscuro que se extiende hasta el borde físico del papel.
+    // 1. Forzar el fondo oscuro en toda la página (incluidos los márgenes)
     css += `html{background:#07080c !important;box-shadow:0 0 0 10000px #07080c !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
-    css += `body{background:transparent !important;padding:0 !important;margin:0 !important}`;
-    css += `.calendar{background:#07080c !important}`;
+
+    // 2. Hacer transparentes los contenedores intermedios
+    css += `body,.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important}`;
+
+    // 3. Quitar bordes, redondeos y sombras del calendario para que se fusione con la hoja
+    css += `.calendar{background:#07080c !important;border:none !important;border-radius:0 !important;box-shadow:none !important;width:100% !important;max-width:100% !important}`;
   } else {
     // Hoja blanca + calendario gris con letras negras (monocromo).
     css += `html,body{background:#ffffff !important;color:#000 !important;padding:0 !important;margin:0 !important}`;
