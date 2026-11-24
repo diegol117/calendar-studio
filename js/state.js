@@ -12,7 +12,7 @@ export const state = {
   subtitle: '',
   footer: '',
   orientation: 'portrait',
-  printTheme: 'white',   // 'white' | 'black'
+  printTheme: 'black',   // ⬅️ CAMBIADO A 'black' POR DEFECTO
   events: {}
 };
 
@@ -30,10 +30,6 @@ export function loadState() {
 
 let saveTimer = null;
 
-/**
- * Guarda el estado y emite eventos `state:saving` / `state:saved`
- * para que la UI (main.js) actualice el indicador.
- */
 export function saveState() {
   document.dispatchEvent(new CustomEvent('state:saving'));
   clearTimeout(saveTimer);

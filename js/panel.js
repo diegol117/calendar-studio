@@ -56,49 +56,49 @@ export function updatePrintPage() {
 export function getPrintPageCSS() {
   const size  = 'A4 ' + state.orientation;
   const black = state.printTheme === 'black';
+  const isLandscape = state.orientation === 'landscape';
 
   let css = '';
 
+  // Quitamos el margen del @page para pintar toda la hoja desde el body
+  css += `@page{size:${size};margin:0}`;
+  css += `@media print{`;
+
+  // Forzamos a que el body ocupe toda la hoja y le damos el margen visual con padding
+  css += `html,body{margin:0 !important;padding:0 !important;width:100% !important;height:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+  css += `body{padding:12mm !important;box-sizing:border-box !important}`;
+
+  // Ajuste para horizontal: reduce el tamaño para que no se corte en dos hojas
+  if (isLandscape) {
+    css += `.calendar{zoom:0.72 !important}`;
+  }
+
+  css += `.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important;width:100% !important;max-width:100% !important}`;
+  css += `.months-grid{display:block !important;gap:0 !important}`;
+  css += `.month{break-inside:avoid;page-break-inside:avoid}`;
+  css += `.month+.month{break-before:page;page-break-before:always}`;
+
+  // Ajustes de celdas para que no se deformen
+  css += `.days{grid-auto-rows:1fr !important}`;
+  css += `.day{overflow:hidden !important;display:flex !important;flex-direction:column !important}`;
+  css += `.day__events{overflow:hidden !important;min-height:0 !important}`;
+
   if (black) {
-    css += `@page{size:${size};margin:0}`;
-    css += `@media print{`;
-    css += `html,body{background:#07080c !important;color:#fff !important;margin:0 !important;padding:0 !important;width:100% !important;height:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
-    css += `body{padding:12mm !important;box-sizing:border-box !important}`;
-
-    css += `.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important;width:100% !important;max-width:100% !important}`;
-
+    // MODO NEGRO
+    css += `html,body{background:#07080c !important;color:#fff !important}`;
     css += `.calendar{background:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;width:100% !important;max-width:100% !important;padding:0 !important}`;
-
-    // ⬇️ AQUI ESTÁ LA MAGIA PARA LA IMPRESIÓN ⬇️
-    css += `.days{grid-auto-rows:1fr !important}`;
-    css += `.day{overflow:hidden !important; display:flex !important; flex-direction:column !important}`;
-    css += `.day__events{overflow:hidden !important}`;
-
-    css += `.months-grid{display:block !important}`;
-    css += `.month{break-inside:avoid;page-break-inside:avoid}`;
-    css += `.month+.month{break-before:page;page-break-before:always}`;
   } else {
-    css += `@page{size:${size};margin:12mm}`;
-    css += `@media print{`;
-    css += `.calendar{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
-
-    // ⬇️ AQUI ESTÁ LA MAGIA PARA LA IMPRESIÓN ⬇️
-    css += `.days{grid-auto-rows:1fr !important}`;
-    css += `.day{overflow:hidden !important; display:flex !important; flex-direction:column !important}`;
-    css += `.day__events{overflow:hidden !important}`;
-
-    css += `.months-grid{display:block !important}`;
-    css += `.month{break-inside:avoid;page-break-inside:avoid}`;
-    css += `.month+.month{break-before:page;page-break-before:always}`;
-
-    css += `html,body{background:#ffffff !important;color:#000 !important;padding:0 !important;margin:0 !important}`;
-    css += `.calendar{background:#d1d5db !important;color:#000 !important;filter:grayscale(1)}`;
+    // MODO BLANCO (Sin bordes negros y calendario gris)
+    css += `html,body{background:#ffffff !important;color:#000 !important}`;
+    css += `.calendar{background:#d1d5db !important;color:#000 !important;border:1px solid #9ca3af !important;box-shadow:none !important;border-radius:0 !important;width:100% !important;max-width:100% !important;padding:20px !important}`;
     css += `.calendar__title,.calendar__subtitle,.calendar__footer,.calendar__badge,.month__title,.weekdays span,.day__num,.day__more,.day__event{color:#000 !important}`;
     css += `.day{background:#f3f4f6 !important;border-color:#9ca3af !important}`;
     css += `.day--empty{background:transparent !important;border-color:transparent !important}`;
     css += `.day--weekend{background:#e5e7eb !important}`;
     css += `.day--today{background:#9ca3af !important}`;
     css += `.calendar__badge{background:#9ca3af !important;color:#000 !important}`;
+    css += `.day__event{background:#e5e7eb !important;border-left-color:#000 !important;color:#000 !important}`;
+    css += `.month__title::before{background:#000 !important}`;
   }
 
   css += `}`;
