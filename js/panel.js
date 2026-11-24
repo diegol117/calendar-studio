@@ -64,13 +64,19 @@ export function getPrintPageCSS() {
   css += `@page{size:${size};margin:0}`;
   css += `@media print{`;
 
-  // Forzamos a que el body ocupe toda la hoja y le damos el margen visual con padding
+  // Forzamos a que el body ocupe toda la hoja
   css += `html,body{margin:0 !important;padding:0 !important;width:100% !important;height:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
-  css += `body{padding:12mm !important;box-sizing:border-box !important}`;
 
-  // Ajuste para horizontal: reduce el tamaño para que no se corte en dos hojas
+  // Ajustes específicos para Horizontal vs Vertical
   if (isLandscape) {
-    css += `.calendar{zoom:0.72 !important}`;
+    css += `body{padding:8mm 12mm !important;box-sizing:border-box !important}`;
+    css += `.calendar{zoom:0.8 !important}`;
+    // ⬇️ AQUÍ AGREGAMOS EL ESPACIADO VERTICAL EXTRA ⬇️
+    css += `.day{min-height:125px !important}`;
+  } else {
+    css += `body{padding:12mm !important;box-sizing:border-box !important}`;
+    css += `.calendar{zoom:1 !important}`;
+    css += `.day{min-height:100px !important}`;
   }
 
   css += `.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important;width:100% !important;max-width:100% !important}`;
