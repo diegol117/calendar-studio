@@ -45,13 +45,28 @@
   text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--cal-muted);padding:6px 0;
 }
-.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+
+/* ⬇️ AQUÍ ESTÁ LA MAGIA: grid-auto-rows fuerza a que todas las semanas midan lo mismo ⬇️ */
+.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+  grid-auto-rows:1fr;
+}
 
 .day{
-  position:relative;display:flex;flex-direction:column;align-items:stretch;gap:4px;
-  min-height:100px;padding:8px;
-  background:var(--cal-cell);border:1px solid transparent;border-radius:10px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:4px;
+  min-height:100px;
+  padding:8px;
+  background:var(--cal-cell);
+  border:1px solid transparent;
+  border-radius:10px;
   font:inherit;color:#fff;text-align:left;cursor:pointer;
+  overflow:hidden; /* ⬅️ Evita que el contenido desborde y estire la celda */
   transition:background .16s ease,border-color .16s ease,transform .16s ease;
 }
 .day:hover{background:var(--cal-cell-hover);border-color:var(--cal-border)}
@@ -67,7 +82,16 @@
   background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)
 }
 
-.day__events{display:flex;flex-direction:column;gap:3px;margin-top:auto;overflow:hidden}
+/* ⬇️ min-height: 0 asegura que el bloque de eventos no empuje la celda hacia abajo ⬇️ */
+.day__events{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin-top:auto;
+  overflow:hidden;
+  min-height:0;
+}
+
 .day__event{
   display:block;padding:3px 5px;font-size:10.5px;font-weight:600;line-height:1.2;color:#fff;
   background:color-mix(in srgb,var(--tag) 25%,transparent);

@@ -60,28 +60,33 @@ export function getPrintPageCSS() {
   let css = '';
 
   if (black) {
-    // 1. Quitamos el margen de la página para que el color llegue a los bordes físicos
     css += `@page{size:${size};margin:0}`;
     css += `@media print{`;
-    // 2. Pintamos toda la hoja de negro y le damos el margen visual con padding
     css += `html,body{background:#07080c !important;color:#fff !important;margin:0 !important;padding:0 !important;width:100% !important;height:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
     css += `body{padding:12mm !important;box-sizing:border-box !important}`;
 
-    // 3. Hacemos transparentes todos los contenedores
     css += `.layout,.stage,#calendar-root{background:transparent !important;margin:0 !important;padding:0 !important;display:block !important;width:100% !important;max-width:100% !important}`;
 
-    // 4. EL TRUCO: Calendario transparente, sin bordes, sin sombras y a todo el ancho
     css += `.calendar{background:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;width:100% !important;max-width:100% !important;padding:0 !important}`;
 
-    // 5. Reglas de paginación
+    // ⬇️ AQUI ESTÁ LA MAGIA PARA LA IMPRESIÓN ⬇️
+    css += `.days{grid-auto-rows:1fr !important}`;
+    css += `.day{overflow:hidden !important; display:flex !important; flex-direction:column !important}`;
+    css += `.day__events{overflow:hidden !important}`;
+
     css += `.months-grid{display:block !important}`;
     css += `.month{break-inside:avoid;page-break-inside:avoid}`;
     css += `.month+.month{break-before:page;page-break-before:always}`;
   } else {
-    // Hoja blanca + calendario gris con letras negras (monocromo).
     css += `@page{size:${size};margin:12mm}`;
     css += `@media print{`;
     css += `.calendar{-webkit-print-color-adjust:exact;print-color-adjust:exact}`;
+
+    // ⬇️ AQUI ESTÁ LA MAGIA PARA LA IMPRESIÓN ⬇️
+    css += `.days{grid-auto-rows:1fr !important}`;
+    css += `.day{overflow:hidden !important; display:flex !important; flex-direction:column !important}`;
+    css += `.day__events{overflow:hidden !important}`;
+
     css += `.months-grid{display:block !important}`;
     css += `.month{break-inside:avoid;page-break-inside:avoid}`;
     css += `.month+.month{break-before:page;page-break-before:always}`;
